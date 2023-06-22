@@ -10,7 +10,14 @@ if [ "$SUITE" = "app-development" ];
 then
     export MOODLE_DOCKER_APP_PATH="${basedir}/app"
 
-    git clone --branch "$MOODLE_DOCKER_APP_VERSION" --depth 1 https://github.com/moodlehq/moodleapp $basedir/app
+    branch="$MOODLE_DOCKER_APP_VERSION"
+
+    if [ "$branch" = 'latest' ]
+    then
+      branch="v4.0.0"
+    fi
+
+    git clone --branch "$branch" --depth 1 https://github.com/moodlehq/moodleapp $basedir/app
     git clone --branch "$MOODLE_DOCKER_APP_VERSION" --depth 1 https://github.com/moodlehq/moodle-local_moodleappbehat $basedir/moodle/local/moodleappbehat
 
     if [[ $RUNTIME = ionic5 ]];
